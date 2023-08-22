@@ -1,14 +1,100 @@
+# Android Developer Roadmap By [Amit Shekhar](https://github.com/amitshekhariitbhu/android-developer-roadmap)
 
-# Android Developer Roadmap
+### Kotlin Basic
+```
+fun main() {
+  print("Hello")
+  var k = 29 -> mutable
+  val j = 20 -> inmutable
+  print("my number is $k") -> directly print value in print statement
+}
+```
+```
+if (x > y) {
+  ...
+} else if {
+  ...
+} else {
+  ...
+}
+```
+```
+val arr = arrayOf(1,2,3,4,5)
+val list = mutableListOf<Int>(1,2,3,4,5)
+while (x > 10) {
+  ...
+}
+for (num in arr) {
+  ...
+}
+for (i in 0..arr.size - 1) {
+  ...
+}
+```
+### Kotlin Error and Exception
+```
+var a = 10
+var b = 0
+try {
+  var ans = a/b
+  print("done")
+} catch (e : DivideByZero) {
+  print("change values")
+} finally {
+  print("program done")
+}
+```
+### Kotlin Null Pointer
+```
+val value : String? = null -> use ? for null safety
+print(value?.length) -> use ? everywhere where the value is used
+```
+### Kotlin Classes/Objects
+```
+class Dog {
+  var breed: String = "Labrador"
+  var color: String = "Brown"
+  var age: Int = 3
+  fun eat() {
+    print("eat")
+  }
+  fun bark() {
+    print("talk")
+  }
+}
+```
+### Kotlin Constructor
+```
+class Dog(var breed: String, var color: String, var age: Int) {
+  fun eat() {}
+  fun bark() {}
+}
+```
+### Kotlin Inheritance & Interface
+```
+open class Animals(var legs: Int, var color: String) {
+  fun eat() = print("eat")
+  fun sleep() = print("sleep")
+}
+class Dogs(legs: Int, color: String): Animals(legs, color) {
+  fun bark() = print("bark")
+}
+class Cats(legs: Int, color: String): Animals(legs, color) {
+  fun meow() = print("meow")
+}
+class Hello: MyInterface, NewInterface {} -> for hybrid inheritance
+```
+### Override And Modefiers
+```
+In Animal Class -> open fun sounds() = print("yes")
+In Dogs Class > override fun sounds() = print("bark")
 
-> A complete roadmap to learn Android App Development. This roadmap will help you in becoming a complete Android Developer.
-
-> Credit -> [Amit Shekhar Github](https://github.com/amitshekhariitbhu/android-developer-roadmap)
-
-## Roadmap to learn Android App Development
-* Programming
-   * Java
-   * Kotlin
+public class -> open for all, default
+internal class -> only for modules
+private class -> only for class
+protected class -> not visible even in class
+```
+<!--
 * Android Studio
    * Android Studio IDE Overview
    * Project Structure
@@ -185,3 +271,4 @@
      * App Bundle
      * Playstore
 * Keep Learning and Improving
+-->
