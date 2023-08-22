@@ -94,13 +94,127 @@ internal class -> only for modules
 private class -> only for class
 protected class -> not visible even in class
 ```
+### build.gradle (Module:App)
+```
+android {
+    compileSdkVersion 29 -> sdk on which your app gets compiled
+    buildToolsVersion "29.0.3" -> version you want to use to build tools
+
+    defaultConfig {
+        applicationId "com.example.myapp" -> package name
+        minSdkVersion 15 -> minimum sdk which can run your app
+        targetSdkVersion 29 -> targeted sdk device for your app
+        versionCode 1 -> version of your app
+        versionName "1.0" -> formal name of version
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner" -> for testing and running your app
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies { -> list of all dependencies are added here
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
+```
+### build.gradle (Project:App)
+```
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.application'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+```
+### gradle.properties (Gradle Properties)
+```
+org.gradle.jvmargs=-Xmx1536m -> Specify the version of the Gradle build tools to use
+myCustomProperty=foo -> custom property for build
+```
+[More about .gradle files](https://blog.devgenius.io/what-is-the-gradle-scripts-folder-in-an-android-project-c4b019ea95e0#:~:text=gradle%20file%20is%20located%20in,the%20app%2C%20and%20other%20settings.)
+### Activity LifeCycle
+```
+onCreate() -> This is the first callback and called when the activity is first created.
+onStart() -> This callback is called when the activity becomes visible to the user.
+onResume() -> This is called when the user starts interacting with the application.
+onPause() -> The paused activity does not receive user input and cannot execute any code and called when
+the current activity is being paused and the previous activity is being resumed.
+onStop() -> This callback is called when the activity is no longer visible.
+onDestroy() -> This callback is called before the activity is destroyed by the system.
+onRestart() -> This callback is called when the activity restarts after stopping it.
+```
+### Activity BackStack 
+```
+BackStack is a stack where a activity or a task get pushed when you call a new acitivity and when you click back
+it comes back to the last used activity.
+```
+### Android Components -> Activity
+```
+An activity represents a single screen with a user interface, in-short Activity performs actions on the screen.
+For example, an email application might have one activity that shows a list of new emails, another activity to
+compose an email, and another activity for reading emails. If an application has more than one activity, then one
+of them should be marked as the activity that is presented when the application is launched.
+
+public class MainActivity extends Activity {
+}
+```
+### Android Components -> Service
+```
+A service is a component that runs in the background to perform long-running operations. For example, a service might
+play music in the background while the user is in a different application, or it might fetch data over the network
+without blocking user interaction with an activity.
+
+public class MyService extends Service {
+}
+```
+### Android Components -> Broadcast Recievers
+```
+Broadcast Receivers simply respond to broadcast messages from other applications or from the system. For example,
+applications can also initiate broadcasts to let other applications know that some data has been downloaded to the
+device and is available for them to use, so this is broadcast receiver who will intercept this communication and will initiate
+appropriate action.
+
+public class MyReceiver  extends  BroadcastReceiver {
+   public void onReceive(context,intent){}
+}
+```
+### Android Components -> Content Provider
+```
+A content provider component supplies data from one application to others on request. Such requests are handled by
+the methods of the ContentResolver class. The data may be stored in the file system, the database or somewhere
+else entirely. A content provider is implemented as a subclass of ContentProvider class and must implement a standard
+set of APIs that enable other applications to
+perform transactions.
+
+public class MyContentProvider extends  ContentProvider {
+   public void onCreate(){}
+}
+```
 <!--
-* Android Studio
-   * Android Studio IDE Overview
-   * Project Structure
-   	   * Java/Kotlin
-   	   * XML
-   	   * .gradle files
 * Android Component
    * Activity
      * Activity Lifecycle
