@@ -229,32 +229,194 @@ android:label="string resource"
 android:priority="integer" >
 . . .
 </intent-filter>
+```
+### Views In Android
+```
+Text View -> This class is used to display text on the android application screen. It also
+allows user to optionally edit it.
+Edit Text -> This class makes text to be editable in Android application. It helps in
+building the data interface taken from any user.
+Image view -> Image view helps to display images in an android application. Any image can be
+selected, we just have to paste our image in a drawable folder from where we can access it. 
+Check Box -> Checkbox is used in that applications where we have to select one option from
+multiple provided. 
+Radio Button -> Radio button is like checkbox, but there is slight difference between them.
+Radio button is a  two-states button that can be either checked or unchecked.
+Button View -> This class is used to create a button on an application screen. Buttons are
+very helpful in getting into a content. Android button represents a clickable push-button
+widget.
+Image Button View -> Image button is a button but it carries an image on it. We can put an
+image or a certain text on it and when we click it provides the operations assigned to it.
+```
+### ViewGroups In Android
+```
+LinearLayout is a view group that aligns all children in a single direction, vertically or
+horizontally. You can specify the layout direction with the android:orientation attribute.
 
+RelativeLayout is a view group that displays child views in relative positions. The position
+of each view can be specified as relative to sibling elements (such as to the left-of or
+below another view) or in positions relative to the parent RelativeLayout area (such as
+aligned to the bottom, left or center) using IDs.
+
+Frame Layout is designed to block out an area on the screen to display a single item. Mostly
+used in fragments.
+
+Constraint Layout is used to define a layout by assigning constraints for every child
+view/widget relative to other views present. A ConstraintLayout is similar to a
+RelativeLayout, but with more power.
+```
+### Recycler View
+```
+RecyclerView makes it easy to efficiently display large sets of data. You supply the data and
+define how each item looks, and the RecyclerView library dynamically creates the elements
+when they're needed.
+
+RecyclerView is the ViewGroup that contains the views corresponding to your data. It's a view
+itself, so you add RecyclerView to your layout the way you would add any other UI element.
+
+Each individual element in the list is defined by a view holder object. When the view holder
+is created, it doesn't have any data associated with it. After the view holder is created,
+the RecyclerView binds it to its data. You define the view holder by extending
+RecyclerView.ViewHolder.
+
+The RecyclerView requests views, and binds the views to their data, by calling methods in the
+adapter. You define the adapter by extending RecyclerView.Adapter.
+
+The layout manager arranges the individual elements in your list. You can use one of the
+layout managers provided by the RecyclerView library, or you can define your own. Layout
+managers are all based on the library's LayoutManager abstract class.
+
+class CustomAdapter(private val dataSet: Array<String>) :
+        RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+
+    /**
+     * Provide a reference to the type of views that you are using
+     * (custom ViewHolder)
+     */
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val textView: TextView
+
+        init {
+            // Define click listener for the ViewHolder's View
+            textView = view.findViewById(R.id.textView)
+        }
+    }
+
+    // Create new views (invoked by the layout manager)
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
+        // Create a new view, which defines the UI of the list item
+        val view = LayoutInflater.from(viewGroup.context)
+                .inflate(R.layout.text_row_item, viewGroup, false)
+
+        return ViewHolder(view)
+    }
+
+    // Replace the contents of a view (invoked by the layout manager)
+    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+
+        // Get element from your dataset at this position and replace the
+        // contents of the view with that element
+        viewHolder.textView.text = dataSet[position]
+    }
+
+    // Return the size of your dataset (invoked by the layout manager)
+    override fun getItemCount() = dataSet.size
+
+}
+```
+### ViewPager
+```
+Android ViewPager widget is found in the support library and it allows the user to swipe left
+or right to see an entirely new screen. Today we’re implementing a ViewPager by using Views
+and PagerAdapter.
+
+<android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+viewPager.setAdapter(new CustomPagerAdapter(this));
+
+package com.journaldev.viewpager;
+public enum ModelObject {
+    RED(R.string.red, R.layout.view_red),
+    BLUE(R.string.blue, R.layout.view_blue),
+    GREEN(R.string.green, R.layout.view_green);
+
+    private int mTitleResId;
+    private int mLayoutResId;
+
+    ModelObject(int titleResId, int layoutResId) {
+        mTitleResId = titleResId;
+        mLayoutResId = layoutResId;
+    }
+
+    public int getTitleResId() {
+        return mTitleResId;
+    }
+
+    public int getLayoutResId() {
+        return mLayoutResId;
+    }
+}
+```
+### Spinner
+```
+Spinners provide a quick way to select one value from a set. In the default state, a spinner shows its currently selected value. Touching the spinner displays a dropdown menu with all other available values, from which the user can select a new one.
+
+<Spinner
+    android:id="@+id/planets_spinner"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="planets_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+</resources>
+
+val spinner: Spinner = findViewById(R.id.spinner)
+// Create an ArrayAdapter using the string array and a default spinner layout
+ArrayAdapter.createFromResource(
+        this,
+        R.array.planets_array,
+        android.R.layout.simple_spinner_item
+).also { adapter ->
+    // Specify the layout to use when the list of choices appears
+    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+    // Apply the adapter to the spinner
+    spinner.adapter = adapter
+}
+
+class SpinnerActivity : Activity(), AdapterView.OnItemSelectedListener {
+
+    override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+        // An item was selected. You can retrieve the selected item using
+        // parent.getItemAtPosition(pos)
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>) {
+        // Another interface callback
+    }
+}
+
+val spinner: Spinner = findViewById(R.id.spinner)
+spinner.onItemSelectedListener = this
 ```
 <!--
-
-* Intents
-   * Types of Intent
-     * Implicit
-     * Explicit
-   * Intent Filter
-* Static User Interface
-  * View
-      * Button, ImageView, TextView, EditText etc
-  * ViewGroup
-  	   * LinearLayout, RelativeLayout, FrameLayout, ConstraintLayout
-* Dynamic User Interface
-   * RecyclerView
-   * ViewPager
-   * Spinner
 * CustomView
    * Canvas
    * Bitmap
    * Paint
-* UI Resources
-   * Drawables
-   * String
-   * Styles
 * Fragments
    * Fragment Lifecycle
    * Fragment Manager
