@@ -214,14 +214,25 @@ public class MyContentProvider extends  ContentProvider {
    public void onCreate(){}
 }
 ```
+### Intent & Intent Filter
+```
+val intent = new Intent(Intent.ACTION_VIEW) -> Implicit Intent (doesn't specify the action)
+intent.setData(Uri.parse("http://www.javatpoint.com"))
+startActivity(intent)
+
+val intent = new Intent(this, MainActivity:class.java) -> Explicit Intent (where we pass component or external class)
+startActivity(intent)
+
+<intent-filter -> The intent filter specifies the types of intents that an activity, service, or broadcast receiver can respond.
+android:icon="drawable resource"
+android:label="string resource"
+android:priority="integer" >
+. . .
+</intent-filter>
+
+```
 <!--
-* Android Component
-   * Activity
-     * Activity Lifecycle
-     * Tasks & Back Stack
-   * Service
-   * Broadcast Receiver
-   * Content Provider
+
 * Intents
    * Types of Intent
      * Implicit
