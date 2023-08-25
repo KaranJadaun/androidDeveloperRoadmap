@@ -413,10 +413,6 @@ val spinner: Spinner = findViewById(R.id.spinner)
 spinner.onItemSelectedListener = this
 ```
 <!--
-* CustomView
-   * Canvas
-   * Bitmap
-   * Paint
 * Fragments
    * Fragment Lifecycle
    * Fragment Manager
